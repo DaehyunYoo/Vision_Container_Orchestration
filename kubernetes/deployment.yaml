@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: image-segmentation
-        image: your-docker-registry/image-segmentation:v1
+        image: daehyunyoo/image-segmentation:v1
         ports:
         - containerPort: 8000
         resources:
