@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: image-segmentation
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: image-segmentation
+  template:
+    metadata:
+      labels:
+        app: image-segmentation
+    spec:
+      containers:
+      - name: image-segmentation
+        image: your-docker-registry/image-segmentation:v1
+        ports:
+        - containerPort: 8000
+        resources:
+          limits:
+            cpu: "2"
+            memory: "4Gi"
+          requests:
+            cpu: "1"
+            memory: "2Gi"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: image-segmentation-service
+spec:
+  selector:
+    app: image-segmentation
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8000
+  type: LoadBalancer
